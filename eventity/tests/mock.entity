@@ -1,0 +1,10 @@
+test:
+
+string = Fly high!
+number = 100
+
+test2:
+
+strings = String one!
+strings = String two!
+strings = String three!

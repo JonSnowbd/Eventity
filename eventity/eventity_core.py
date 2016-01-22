@@ -2,15 +2,15 @@ from .entity import Entity
 from .eventmanager import EventManager
 from .entityfileparser import parse_entity
 
-pool = []
-systems = []
-evt = EventManager()
-
 class ECSystem(object):
     """
     The beef of the Framework. This is instanciated in the init file to allow
     easy ecs(search id) formats
     """
+    def __init__(self):
+        self.pool = []
+        self.systems = []
+        self.evt = EventManager()
 
     def __call__(self, search):
         return self.get_id(search)
@@ -21,20 +21,23 @@ class ECSystem(object):
         than let the system give it a number.
         """
         if Entity_ID is None:
-            tempID = len(pool)+1
+            tempID = len(self.pool)+1
         else:
             if self.exists(Entity_ID): return None
             tempID = Entity_ID
 
         tempent = Entity(tempID)
-        pool.append(tempent)
+        self.pool.append(tempent)
 
-        return pool[-1]
+        return self.pool[-1]
 
     def from_file(self, file_path, Entity_ID=None):
         temp = self.new(Entity_ID)
+
         for component in parse_entity(file_path):
             temp.add(component)
+
+        return temp
 
     def list(self, Search_ID = None):
         """
@@ -43,9 +46,9 @@ class ECSystem(object):
         """
         ret_array = []
         if Search_ID is None:
-            return pool
+            return self.pool
         else:
-            for entity in pool:
+            for entity in self.pool:
                 if entity.has(Search_ID) is True:
                     ret_array.append(entity)
             return ret_array
@@ -75,11 +78,15 @@ class ECSystem(object):
         Register a system into the... Well system. Binds all the events
         into the eventmanager
         """
-        temp = system_class(evt, self.list, self)
-        systems.append(temp)
+        temp = system_class(self.evt, self.list, self)
+        self.systems.append(temp)
 
     def send(self, trigger, data = {}):
         """
         Broadcasts an event to all systems.
         """
-        evt.trigger(trigger, data)
+        self.evt.trigger(trigger, data)
+
+    def clear_all(self, confirm=False):
+        if confirm: self.pool = []
+        else: print "Not confirmed, not doing anything."
