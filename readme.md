@@ -2,7 +2,7 @@
 ---
 Eventity is an easy to use mix of Event, Entity, Component, and Systems. To get started all you need to do is import ecs from ECS.
 
-`from ECS import ecs`
+`from eventity import ecs`
 
 from here the world is your oyster. See subsections for information on each part of eventity.
 
@@ -25,7 +25,7 @@ Accessing these entities are also super simple and inspired by Jquery:
 
 ---
 
-Entities are in charge of adding components to themselves via the method `add()`:
+Entities are in charge of adding components to themselves via the method `add()`.
 `ecs("player").add(PositionComponent)`
 
 Or if you're getting fancy, you can chain both thew new and add methods:
@@ -61,7 +61,7 @@ Well, we know the very basics of Entities and components. In a metaphor, I'd say
 Systems are of course Javascript in this metaphor, they're going to drive our application. lets write a system that'll move player along the x axis every 'tick' or update.
 
 ```
-from ECS import ecs, System
+from eventity import ecs, System
 
 PositionComponent = {
     "name": "position",
