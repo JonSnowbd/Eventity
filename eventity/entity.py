@@ -1,4 +1,5 @@
 from copy import deepcopy
+from .component import Component
 
 class Entity(object):
     """
@@ -27,7 +28,11 @@ class Entity(object):
             }
         }
         """
-        temp = deepcopy(component)# Required to make transaction non-referential
+        if isinstance(component, Component):
+            temp_dict = component.dict
+        else:
+            temp_dict = component
+        temp = deepcopy(temp_dict)
 
         for key, value in kwargs.iteritems():
             temp["data"][key] = value

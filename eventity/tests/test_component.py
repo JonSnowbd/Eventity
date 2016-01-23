@@ -1,17 +1,20 @@
-from eventity import ECSystem
+from eventity import ECSystem, Component
 from unittest import TestCase
 import os
 
 class TestComponent(TestCase):
     def test_correct_id(self):
 
-        component = {
+        expected_dict = {
             "name": "test",
             "data": {
                 "string": "Hello world!",
                 "number": 10
             }
         }
+
+        component = Component("test", string="Hello world!", number = 10)
+        self.assertTrue(component.dict == expected_dict)
 
         mock_file_path = os.path.join(os.path.realpath(__file__), "..", "mock.entity")
 

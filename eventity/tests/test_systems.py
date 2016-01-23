@@ -1,4 +1,4 @@
-from eventity import ECSystem, System
+from eventity import ECSystem, System, Component
 from unittest import TestCase
 import os
 
@@ -12,13 +12,7 @@ class TestSystem(System):
 
 class TestSystems(TestCase):
     def test_eventsystem(self):
-        posComponent = {
-            "name": "position",
-            "data": {
-                "x": 0,
-                "y": 0
-            }
-        }
+        posComponent = Component("position", x=0, y=0)
         ecs = ECSystem()
 
         ecs.register(TestSystem)

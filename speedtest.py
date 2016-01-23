@@ -1,11 +1,8 @@
-from eventity import ecs, System
+from eventity import ecs, System, Component
 import time
-component = {
-    "name": "comp",
-    "data": {
-        "string": "BOOOOYAH"
-    }
-}
+
+comp = Component("comp", string="BOOOOYAH")
+
 test_list = []
 class TestSystem(System):
     def set_up(self, evt):
@@ -18,18 +15,18 @@ class TestSystem(System):
 
 add_time1 = time.time()
 for x in xrange(100000):
-    ecs.new().add(component)
+    ecs.new().add(comp)
 add_time2 = time.time()
 print "Making 100000 components: " + str(add_time2 - add_time1) + " seconds"
 
 search_time1 = time.time()
-for e in ecs.list(["comp", "Thing", "another"]):
+for e in ecs.list(["comp"]):
     test_list.append(e)
 
 for e in ecs.list(["comp", "Thing", "another"]):
     test_list.append(e)
 
-for e in ecs.list(["comp", "Thing", "another"]):
+for e in ecs.list(["comp"]):
     test_list.append(e)
 
 for e in ecs.list(["comp", "Thing", "another"]):
@@ -39,9 +36,9 @@ print "Searching all those 100000 components 4 times: " + str(search_time2 - sea
 
 system_time1 = time.time()
 ecs.register(TestSystem)
-ecs.send("make_hello", {"new_string": "Mang"})
-ecs.send("make_hello", {"new_string": "Trudy"})
-ecs.send("make_hello", {"new_string": "Oliver"})
-ecs.send("make_hello", {"new_string": "Phil"})
+ecs.send("make_hello", new_string="Mang")
+ecs.send("make_hello", new_string="Trudy")
+ecs.send("make_hello", new_string="Oliver")
+ecs.send("make_hello", new_string="Phil")
 system_time2 = time.time()
 print "Registering a system and making lots of expensive calls: " + str(system_time2 - system_time1) + " seconds"
