@@ -44,20 +44,15 @@ class ECSystem(object):
         Return a filtered list of the entities with certain components. If components
         are not given to the method, simply return all entities.
         """
-        ret_array = []
-        if Search_ID is None:
-            return self.pool
-        else:
-            for entity in self.pool:
-                if entity.has(Search_ID) is True:
-                    ret_array.append(entity)
-            return ret_array
+        for entity in self.pool:
+            if entity.has(Search_ID) is True:
+                yield entity
 
     def get_id(self, Search_ID):
         """
         Get an entity with a certain ID. Used by the __call__ attr of the ECS.
         """
-        for entity in self.list():
+        for entity in self.pool:
             if entity.id == Search_ID:
                 return entity
 

@@ -13,7 +13,7 @@ class Entity(object):
     def __str__(self):
         return "<Entity " + str(self.id) + ">"
 
-    def add(self, component, custom_data = None):
+    def add(self, component, **kwargs):
         """
         Adds a component to the entity, accessible through the dot operator
         eg. ecs("player").position["x"]
@@ -28,11 +28,8 @@ class Entity(object):
         }
         """
         temp = deepcopy(component)# Required to make transaction non-referential
-        if custom_data is None:
-            setattr(self, temp["name"], temp["data"])
-        else:
-            setattr(self, temp["name"], custom_data)
 
+        setattr(self, temp["name"], temp["data"])
         return self
 
     def has(self, c_list = []):
@@ -41,9 +38,7 @@ class Entity(object):
         c_list.
         """
         for component in c_list:
-            try:
-                getattr(self, component)
-            except AttributeError:
+            if not hasattr(self, component):
                 return False
 
         return True
