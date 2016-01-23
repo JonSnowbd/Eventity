@@ -10,28 +10,20 @@ from here the world is your oyster. See subsections for information on each part
 
 In Eventity, entities are nothing more than an object with an ID and various methods to handle their relations to various components, which in turn are sets of data.
 
----
-
 To create a new entity:
 `ecs.new()`
 
 or, to create a useful Named entity:
 `ecs.new("player")`
 
----
-
 Accessing these entities are also super simple and inspired by Jquery:
 `ecs("player")`
-
----
 
 Entities are in charge of adding components to themselves via the method `add()`.
 `ecs("player").add(PositionComponent)`
 
 Or if you're getting fancy, you can chain both thew new and add methods:
 `ecs.new("player").add(PositionComponent)`
-
----
 
 You can also query Entities, with the `ecs.list([])` method. Forgoing parameters will simply return every entity
 
@@ -94,8 +86,6 @@ Now, that wasn't *too* hard was it? Lets work through it.
 
 `class MovementSystem(System):`
 Here we extend System, which we imported from ECS, this handles a bit of the logic so you can keep your systems nice and clean.
-
----
 
 ```
 def set_up(self, eventmanager):

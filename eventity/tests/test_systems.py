@@ -4,7 +4,7 @@ import os
 
 class TestSystem(System):
     def set_up(self, evt):
-        evt.on("do_it", self.do_it)
+        evt.subscribe(self.do_it, "do_it")
 
     def do_it(self, data):
         for entity in self.ecs.list(["position"]):

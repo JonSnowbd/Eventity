@@ -1,5 +1,5 @@
 from .entity import Entity
-from .eventmanager import EventManager
+from pubsub import pub
 from .entityfileparser import parse_entity
 
 class ECSystem(object):
@@ -10,7 +10,7 @@ class ECSystem(object):
     def __init__(self):
         self.pool = []
         self.systems = []
-        self.evt = EventManager()
+        self.evt = pub
 
     def __call__(self, search):
         return self.get_id(search)
@@ -85,7 +85,7 @@ class ECSystem(object):
         """
         Broadcasts an event to all systems.
         """
-        self.evt.trigger(trigger, data)
+        self.evt.sendMessage(trigger, data=data)
 
     def clear_all(self, confirm=False):
         if confirm: self.pool = []

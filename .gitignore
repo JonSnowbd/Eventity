@@ -5,3 +5,5 @@
 /*.egg-info
 
 /venv/
+
+/build/
