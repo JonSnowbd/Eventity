@@ -29,6 +29,9 @@ class Entity(object):
         """
         temp = deepcopy(component)# Required to make transaction non-referential
 
+        for key, value in kwargs.iteritems():
+            temp["data"][key] = value
+
         setattr(self, temp["name"], temp["data"])
         return self
 

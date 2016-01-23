@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 name="eventity",
-version='0.1.0',
+version='0.1.2',
 description="Easy event based ECS system",
 keywords="event entity component system ecs",
 url="https://github.com/JonSnowbd/Eventity",

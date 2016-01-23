@@ -8,18 +8,20 @@ class TestComponent(TestCase):
         component = {
             "name": "test",
             "data": {
-                "string": "Hello world!"
+                "string": "Hello world!",
+                "number": 10
             }
         }
 
         mock_file_path = os.path.join(os.path.realpath(__file__), "..", "mock.entity")
-        
+
         ecs = ECSystem()
 
-        e1 = ecs.new().add(component)
+        e1 = ecs.new().add(component, string="Not Hello world!")
         e2 = ecs.from_file(mock_file_path)
 
-        self.assertTrue(e1.test["string"] == "Hello world!")
+        self.assertTrue(e1.test["string"] == "Not Hello world!")
+        self.assertTrue(e1.test["number"] == 10)
 
         self.assertTrue(e2.test["string"] == "Fly high!")
         self.assertTrue(e2.test["number"] is 100)
