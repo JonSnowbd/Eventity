@@ -76,11 +76,14 @@ class ECSystem(object):
         temp = system_class(self.evt, self.list, self)
         self.systems.append(temp)
 
-    def send(self, trigger, data = {}):
+    def send(self, trigger, **kwargs):
         """
         Broadcasts an event to all systems.
         """
-        self.evt.sendMessage(trigger, data=data)
+        temp_data = {}
+        for key, value in kwargs.iteritems():
+            temp_data[key] = value
+        self.evt.sendMessage(trigger, data=temp_data)
 
     def clear_all(self, confirm=False):
         if confirm: self.pool = []
