@@ -15,22 +15,25 @@ class TestSystem(System):
 
 add_time1 = time.time()
 for x in xrange(100000):
-    ecs.new().add(comp)
+    j = ecs.new()
+    ecs.add(j, comp)
 add_time2 = time.time()
 print "Making 100000 components: " + str(add_time2 - add_time1) + " seconds"
 
 search_time1 = time.time()
-for e in ecs.list(["comp"]):
-    test_list.append(e)
-
-for e in ecs.list(["comp", "Thing", "another"]):
-    test_list.append(e)
 
 for e in ecs.list(["comp"]):
     test_list.append(e)
 
-for e in ecs.list(["comp", "Thing", "another"]):
+for e in ecs.list(["comp"]):
     test_list.append(e)
+
+for e in ecs.list(["comp"]):
+    test_list.append(e)
+
+for e in ecs.list(["comp"]):
+    test_list.append(e)
+
 search_time2 = time.time()
 print "Searching all those 100000 components 4 times: " + str(search_time2 - search_time1) + " seconds"
 
