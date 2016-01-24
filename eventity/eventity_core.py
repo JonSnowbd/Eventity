@@ -64,15 +64,20 @@ class ECSystem(object):
             self.pool[temp["name"]].add(entity)
         return self
 
-    def list(self, search_array):
+    def list(self, search_array = None):
         """
         Return a filtered list of the entities with certain components. If components
-        are not given to the method, simply return all entities.
+        are not given to the method, simply no entities.
         """
+        if search_array is None:
+            return
+            yield
+
         try:
             entity_list = set.intersection(*[self.pool[x] for x in search_array])
         except KeyError:
             return
+            yield
 
         for ent in entity_list:
             yield ent
